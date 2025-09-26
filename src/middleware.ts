@@ -39,7 +39,7 @@ async function validateToken(token: string) {
 
         await api.get("/me",{
             headers: {
-                Authorization: `Beares ${token}`  
+                Authorization: `Beares ${token}`   
             }
         })
         return true;
