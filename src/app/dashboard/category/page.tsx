@@ -1,63 +1,57 @@
 import styles from './styles.module.scss'
 import { Button } from "@/app/dashboard/components/button"
-import { symlink } from 'fs'
 import { api } from '@/services/api'
-import { getCookiesServer } from '@/lib/cookieServer'
 import { redirect } from 'next/navigation'
+import { getCookieServer } from '@/lib/cookieServer'
 
-export default function Category() {
+export default function Category(){
 
-
-    async function handleRegisterCategory(formData: FormData) {
-        "use server"
-
-        const name= formData.get("name")
-        if( name === "") return;
-
- const data= {
-    name: name,
- }
-
- const token = await  getCookiesServer();
-
- await api.post("/category", data, {
-    headers:{
-        Authorization: `Bearer ${token}`
-    }
- })
- .catch((err) => {
-    console.log(err)
-    return;
- })
-
- redirect ("/dashboard")
-
-    } 
+  async function handleRegisterCategory(formData: FormData){
+    "use server"
     
-    return (
-        <main className={styles.container}>
-            <h1> Nova Categoria</h1>
+    const name = formData.get("name")
+
+    if(name === "") return;
+
+    const data = {
+      name: name,
+    }
+
+    const token = getCookieServer();
+
+    await api.post("/category", data, {
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return;
+    })
+
+    redirect("/dashboard")
+
+  }
 
 
-            <form
-                className={styles.form}
-                action={handleRegisterCategory}
-            >
-                <input
-                    type='text'
-                    name='name'
-                    placeholder=' Noma da categoria, ex: Pizzas'
-                    required
-                    className={styles.input}
-                />
+  return(
+    <main className={styles.container}>
+      <h1>Nova Categoria</h1>
 
-                <Button name='Cadastrar' />
+      <form 
+        className={styles.form}
+        action={handleRegisterCategory}
+      >
+        <input 
+          type="text"
+          name="name"
+          placeholder="Nome da categoria, ex: Pizzas"
+          required
+          className={styles.input}
+        />
 
-
-
-            </form>
-        </main>
-    )
+        <Button name="Cadastrar" />
+      </form>
+    </main>
+  )
 }
-
-

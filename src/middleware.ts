@@ -1,5 +1,5 @@
 import  { NextRequest, NextResponse} from 'next/server' 
-import {getCookiesServer} from '@/lib/cookieServer'
+import {getCookieServer} from '@/lib/cookieServer'
 import  { api} from  "@/services/api"
 
 export async function middleware(req: NextRequest) {
@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
 
    }
 
-   const   token  = await  getCookiesServer();
+   const   token  = await  getCookieServer();
    
     if(pathname.startsWith("/dashboard")){
         if(!token){

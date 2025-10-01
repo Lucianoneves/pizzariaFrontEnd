@@ -2,7 +2,7 @@
 
 
  export function getCookieClient(){ 
-    const token = getCookie ("session")
+    const token   =  getCookie ("session")
 
     return token;
  }
