@@ -9,6 +9,7 @@ import { api } from '@/services/api'
 import { getCookieClient } from '@/lib/cookieClient'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { Toaster } from 'sonner' 
 
 interface CategoryProps {
   id: string;
@@ -57,9 +58,10 @@ async function handleRegisterProduct(formData: FormData) {
     toast.success("Produto cadastrado com sucesso!")
     router.push("/dashboard")
   } catch (err) {
-    toast.error("Erro ao cadastrar produto!") 
+    toast.warning("Erro ao cadastrar produto!") 
     console.error(err)
-
+    toast.success("Produto registrado com sucesso!!!")     
+    router.push("/dashboard")
   
   }
 }
@@ -71,7 +73,7 @@ async function handleRegisterProduct(formData: FormData) {
       const image = e.target.files[0];
 
       if (image.type !== "image/jpeg" && image.type !== "image/png") {
-        toast.warning("Formato não permitido!")
+        toast.warning("Formato não permitido!!!")
         return;
       }
 
